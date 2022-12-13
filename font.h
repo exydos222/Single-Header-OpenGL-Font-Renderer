@@ -91,15 +91,7 @@ const inline void InitFontRenderer(unsigned short windowWindow, unsigned short w
         glBindTexture(GL_TEXTURE_2D, atlasTexture);
         glTexSubImage2D(GL_TEXTURE_2D, 0, ox, oy, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
-        Character character = {
-            vec2f{ (float)face->glyph->bitmap.width / windowWindow, (float)face->glyph->bitmap.rows / windowHeight },
-            vec2f{ (float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight },
-            vec2f{ (float)ox / w, (float)oy / h },
-            vec2f{ (float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h },
-            (float)face->glyph->advance.x / 64 / windowWindow
-
-        };
-        Characters.insert(std::pair<char, Character>(c, character));
+        Characters.insert(std::pair<char, Character>(c, Character{ vec2f{ (float)face->glyph->bitmap.width / windowWindow, (float)face->glyph->bitmap.rows / windowHeight }, vec2f{ (float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight }, vec2f{ (float)ox / w, (float)oy / h }, vec2f{ (float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h }, (float)face->glyph->advance.x / 64 / windowWindow }));
 
         rowh = std::max(rowh, (unsigned char)face->glyph->bitmap.rows);
         ox += face->glyph->bitmap.width + 1;
@@ -315,6 +307,20 @@ const inline float GetNegativeStringWidth(std::string str, float wscale) {
     for (unsigned short i = 0; i < str.size(); i++)
         x -= (Characters[str[i]].Advance);
     return x * wscale;
+}
+
+const inline float GetStringHeight(std::string str) {
+    float y = 0;
+    for (unsigned short i = 0; i < str.size(); i++)
+        y = std::fmaxf(Characters[str[i]].Bearing.y, y);
+    return y;
+}
+
+const inline float GetStringHeight(std::string str, float hscale) {
+    float y = 0;
+    for (unsigned short i = 0; i < str.size(); i++)
+        y = std::fmaxf(Characters[str[i]].Bearing.y, y);
+    return y * hscale;
 }
 
 const inline void DrawCenteredString(std::string str, float x, float y, float wscale, float hscale, float red, float green, float blue) {

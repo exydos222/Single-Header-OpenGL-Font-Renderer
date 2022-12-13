@@ -11,7 +11,7 @@
 #include <algorithm>
 
 unsigned int textureVBO, textureVAO, textureEBO;
-unsigned int atlasTexture, judgementTexture;
+unsigned int atlasTexture;
 
 unsigned short chCount = 0, indCount = 0;
 std::vector<float> vertices;

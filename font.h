@@ -1,5 +1,4 @@
 #pragma once
-#include <glm/ext/vector_float2.hpp>
 #include <map>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -17,11 +16,15 @@ unsigned short chCount = 0, indCount = 0;
 std::vector<float> vertices;
 std::vector<unsigned int> indices;
 
+struct vec2f {
+    float x, y;
+};
+
 struct Character {
-    glm::vec2 Size;
-    glm::vec2 Bearing;
-    glm::vec2 Atlas;
-    glm::vec2 AtlasSize;
+    vec2f Size;
+    vec2f Bearing;
+    vec2f Atlas;
+    vec2f AtlasSize;
     float Advance;
 };
 
@@ -89,10 +92,10 @@ const inline void InitFontRenderer(unsigned short windowWindow, unsigned short w
         glTexSubImage2D(GL_TEXTURE_2D, 0, ox, oy, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
         Character character = {
-            glm::vec2((float)face->glyph->bitmap.width / windowWindow, (float)face->glyph->bitmap.rows / windowHeight),
-            glm::vec2((float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight),
-            glm::vec2((float)ox / w, (float)oy / h),
-            glm::vec2((float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h),
+            vec2f{ (float)face->glyph->bitmap.width / windowWindow, (float)face->glyph->bitmap.rows / windowHeight },
+            vec2f{ (float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight },
+            vec2f{ (float)ox / w, (float)oy / h },
+            vec2f{ (float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h },
             (float)face->glyph->advance.x / 64 / windowWindow
 
         };
@@ -431,7 +434,7 @@ const inline void DrawCenteredString(std::string str, float x, float y, float re
 
 const inline void FinishStrings() {
     glUseProgram(textureProgram);
-    
+
     glBindTexture(GL_TEXTURE_2D, atlasTexture);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_DYNAMIC_DRAW);

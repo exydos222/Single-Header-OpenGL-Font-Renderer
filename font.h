@@ -430,6 +430,8 @@ const inline void DrawCenteredString(std::string str, float x, float y, float re
 }
 
 const inline void FinishStrings() {
+    glUseProgram(textureProgram);
+    
     glBindTexture(GL_TEXTURE_2D, atlasTexture);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_DYNAMIC_DRAW);

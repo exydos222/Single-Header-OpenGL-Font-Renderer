@@ -7,7 +7,6 @@
 #include <vector>
 #include <string>
 #include <GL/glew.h>
-#include <algorithm>
 
 unsigned int textureVBO, textureVAO, textureEBO;
 unsigned int atlasTexture;
@@ -173,15 +172,15 @@ const inline void InitFontRenderer(unsigned short windowWindow, unsigned short w
 
 const inline void DrawString(std::string str, float x, float y, float wscale, float hscale, float red, float green, float blue) {
     for (unsigned short i = 0; i < str.size(); i++) {
-        Character ch = Characters[str[i]];
-        float xpos = x + ch.Bearing.x * wscale;
-        float ypos = y - (ch.Size.y - ch.Bearing.y) * hscale;
+        const Character ch = Characters[str[i]];
+        const float xpos = x + ch.Bearing.x * wscale;
+        const float ypos = y - (ch.Size.y - ch.Bearing.y) * hscale;
 
-        float w = ch.Size.x * wscale;
-        float h = ch.Size.y * hscale;
+        const float w = ch.Size.x * wscale;
+        const float h = ch.Size.y * hscale;
         // update for each character
-        float xposw = xpos + w;
-        float yposh = ypos + h;
+        const float xposw = xpos + w;
+        const float yposh = ypos + h;
         vertices.push_back(xposw);
         vertices.push_back(ypos);
         vertices.push_back(0);
@@ -229,12 +228,12 @@ const inline void DrawString(std::string str, float x, float y, float wscale, fl
 
 const inline void DrawString(std::string str, float x, float y, float red, float green, float blue) {
     for (unsigned short i = 0; i < str.size(); i++) {
-        Character ch = Characters[str[i]];
-        float xpos = x + ch.Bearing.x;
-        float ypos = y - (ch.Size.y - ch.Bearing.y);
+        const Character ch = Characters[str[i]];
+        const float xpos = x + ch.Bearing.x;
+        const float ypos = y - (ch.Size.y - ch.Bearing.y);
         // update for each character
-        float xposw = xpos + ch.Size.x;
-        float yposh = ypos + ch.Size.y;
+        const float xposw = xpos + ch.Size.x;
+        const float yposh = ypos + ch.Size.y;
         vertices.push_back(xposw);
         vertices.push_back(ypos);
         vertices.push_back(0);
@@ -312,14 +311,14 @@ const inline float GetNegativeStringWidth(std::string str, float wscale) {
 const inline float GetStringHeight(std::string str) {
     float y = 0;
     for (unsigned short i = 0; i < str.size(); i++)
-        y = std::fmaxf(Characters[str[i]].Bearing.y, y);
+        y = std::max(Characters[str[i]].Bearing.y, y);
     return y;
 }
 
 const inline float GetStringHeight(std::string str, float hscale) {
     float y = 0;
     for (unsigned short i = 0; i < str.size(); i++)
-        y = std::fmaxf(Characters[str[i]].Bearing.y, y);
+        y = std::max(Characters[str[i]].Bearing.y, y);
     return y * hscale;
 }
 
@@ -327,15 +326,15 @@ const inline void DrawCenteredString(std::string str, float x, float y, float ws
     x += GetNegativeStringWidth(str) / 2 * wscale;
 
     for (unsigned short i = 0; i < str.size(); i++) {
-        Character ch = Characters[str[i]];
-        float xpos = x + ch.Bearing.x * wscale;
-        float ypos = y - (ch.Size.y - ch.Bearing.y) * hscale;
+        const Character ch = Characters[str[i]];
+        const float xpos = x + ch.Bearing.x * wscale;
+        const float ypos = y - (ch.Size.y - ch.Bearing.y) * hscale;
 
-        float w = ch.Size.x * wscale;
-        float h = ch.Size.y * hscale;
+        const float w = ch.Size.x * wscale;
+        const float h = ch.Size.y * hscale;
         // update for each character
-        float xposw = xpos + w;
-        float yposh = ypos + h;
+        const float xposw = xpos + w;
+        const float yposh = ypos + h;
         vertices.push_back(xposw);
         vertices.push_back(ypos);
         vertices.push_back(0);
@@ -386,12 +385,12 @@ const inline void DrawCenteredString(std::string str, float x, float y, float re
     x += GetNegativeStringWidth(str) / 2;
 
     for (unsigned short i = 0; i < str.size(); i++) {
-        Character ch = Characters[str[i]];
-        float xpos = x + ch.Bearing.x;
-        float ypos = y - (ch.Size.y - ch.Bearing.y);
+        const Character ch = Characters[str[i]];
+        const float xpos = x + ch.Bearing.x;
+        const float ypos = y - (ch.Size.y - ch.Bearing.y);
         // update for each character
-        float xposw = xpos + ch.Size.x;
-        float yposh = ypos + ch.Size.y;
+        const float xposw = xpos + ch.Size.x;
+        const float yposh = ypos + ch.Size.y;
         vertices.push_back(xposw);
         vertices.push_back(ypos);
         vertices.push_back(0);

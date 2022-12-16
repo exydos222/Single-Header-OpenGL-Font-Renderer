@@ -442,6 +442,10 @@ const inline void FinishStrings() {
 
     glBindTexture(GL_TEXTURE_2D, atlasTexture);
 
+    glBindVertexArray(textureVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, textureEBO);
+    
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_DYNAMIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_DYNAMIC_DRAW);
 

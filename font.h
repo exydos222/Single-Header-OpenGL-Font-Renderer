@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <ft2build.h>
-#include FT_FREETYPE_H
+#define FT_FREETYPE_H
 #include <vector>
 #include <string>
 #include <GL/glew.h>

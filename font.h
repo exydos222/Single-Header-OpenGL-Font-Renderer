@@ -30,7 +30,7 @@ struct Character {
 std::map<char, Character> Characters;
 unsigned int textureProgram;
 
-const inline void InitFontRenderer(unsigned short windowWindow, unsigned short windowHeight, const char* fontName, unsigned short minASCII = 32, unsigned short maxASCII = 126) {
+const inline void InitFontRenderer(unsigned short windowWidth, unsigned short windowHeight, const char* fontName, unsigned short minASCII = 32, unsigned short maxASCII = 126) {
     FT_Library ft;
     FT_Init_FreeType(&ft);
 

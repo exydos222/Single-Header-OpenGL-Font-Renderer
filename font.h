@@ -90,7 +90,7 @@ const inline void InitFontRenderer(unsigned short windowWidth, unsigned short wi
         glBindTexture(GL_TEXTURE_2D, atlasTexture);
         glTexSubImage2D(GL_TEXTURE_2D, 0, ox, oy, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
-        Characters.insert(std::pair<char, Character>(c, Character{ vec2f{ (float)face->glyph->bitmap.width / windowWindow, (float)face->glyph->bitmap.rows / windowHeight }, vec2f{ (float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight }, vec2f{ (float)ox / w, (float)oy / h }, vec2f{ (float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h }, (float)face->glyph->advance.x / 64 / windowWindow }));
+        Characters.insert(std::pair<char, Character>(c, Character{ vec2f{ (float)face->glyph->bitmap.width / windowWidth, (float)face->glyph->bitmap.rows / windowHeight }, vec2f{ (float)face->glyph->bitmap_left / windowWindow, (float)face->glyph->bitmap_top / windowHeight }, vec2f{ (float)ox / w, (float)oy / h }, vec2f{ (float)face->glyph->bitmap.width / w, (float)face->glyph->bitmap.rows / h }, (float)face->glyph->advance.x / 64 / windowWindow }));
 
         rowh = std::max(rowh, (unsigned char)face->glyph->bitmap.rows);
         ox += face->glyph->bitmap.width + 1;
